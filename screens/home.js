@@ -1,0 +1,59 @@
+import React from 'react';
+import { StyleSheet, Text, View, Image  } from 'react-native';
+import TitleHeader from '../components/titleHeader';
+import BottomNavigator from '../components/bottomNavigator';
+
+
+export default function Home(navigation){
+
+  return (
+      <View style={styles.container}>
+
+        <View style={styles.titleHeader}>
+          <TitleHeader HeaderTest="Home"/>
+        </View>
+       
+
+        <View style={styles.bottomNavigator}>
+          <BottomNavigator/>
+        </View>
+      </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#ffffff',
+    height:'100%',
+    alignItems:'center',
+  },
+  bottomNavigator:{
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    right: 0,
+    marginTop:8
+  },
+
+  banner:{
+    width:300,
+    height:300,
+    justifyContent:'center',
+    alignItems:'center',
+  },
+
+  loadingBanner:{
+    justifyContent:'center',
+    alignItems:'center',
+  },
+  loadingText:{
+    color:"#022B3A",
+    fontWeight:'bold',
+    fontSize:20,
+    paddingTop:20
+  },
+  navigationText:{
+    color:"white"
+  },
+});
+
