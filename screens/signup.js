@@ -1,12 +1,110 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {StyleSheet, Text, View, Image, TextInput, TouchableOpacity} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-// import {CheckBox} from '@react-native-community/checkbox'
- 
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function Signup() {
+
+    const rootUser = require('./users.json');
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmpassword, setConfirmPassword] = useState("");
+    const [name, setName] = useState("");
     const [isSelected, setSelection] = useState(false);
+    const [users, setUsers] = useState([]);
+
+    let data;
+    
+  useEffect(() => {
+    async function tempFunction() {
+      await getItemList();
+    }
+
+    tempFunction();
+
+    return () => {};
+  }, []);
+
     const navigation = useNavigation()
+
+    // const data = require('./users.json');
+    const getItemList = async () => {
+      try {
+        data = await AsyncStorage.getItem('usersList');
+  
+        data = JSON.parse(data);
+  
+        setUsers(data);
+
+        if(data == null){
+          setUsers(rootUser)
+        }
+
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+  
+    
+
+    const onSubmit = async () => {
+
+      if(password!=confirmpassword) {
+        alert("Password Mismatch");
+        return;
+      }
+
+ 
+
+
+      // Check if user already exists
+      let userExists = false;
+      
+      users.forEach((user) => {
+      
+     
+  
+        if(user.email == email) {
+          alert("User already Exits!");
+
+          userExists = true;
+          navigation.navigate('Login');
+          
+        }
+      })
+
+
+      if(userExists==false){
+   
+        const user = {
+          "name" : name,
+          "email" : email,
+          "password" : password,
+          "confirmpassword" : confirmpassword
+        }
+
+
+        users.push(user);
+      
+        const users_data = JSON.stringify(users);
+
+        // console.log(users_data);
+
+        await AsyncStorage.setItem('usersList',users_data);
+
+
+        console.log("SIGNUP", users);
+
+        navigation.navigate('Home');
+        
+
+      }
+      
+    }
 
     return (
         <View style={styles.container}>
@@ -27,6 +125,7 @@ export default function Signup() {
             style={styles.TextInput}
             placeholder="Enter Your Full Name"
             placeholderTextColor="#022B3A"
+            onChangeText={(name) => setName(name)}
             />
         </View>
 
@@ -35,6 +134,7 @@ export default function Signup() {
             style={styles.TextInput}
             placeholder="Email or Phone Number"
             placeholderTextColor="#022B3A"
+            onChangeText={(email) => setEmail(email)}
             />
         </View>
     
@@ -44,6 +144,7 @@ export default function Signup() {
             placeholder="Password"
             placeholderTextColor="#022B3A"
             secureTextEntry={true}
+            onChangeText={(password) => setPassword(password)}
             />
         </View>
 
@@ -53,6 +154,7 @@ export default function Signup() {
             placeholder="Confirm Password"
             placeholderTextColor="#022B3A"
             secureTextEntry={true}
+            onChangeText={(confirmpassword) => setConfirmPassword(confirmpassword)}
             />
         </View>
     
@@ -62,7 +164,7 @@ export default function Signup() {
             </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.signupButton}>
+        <TouchableOpacity style={styles.signupButton} onPress={onSubmit}>
             <Text style={styles.signupText}>SIGN UP</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>

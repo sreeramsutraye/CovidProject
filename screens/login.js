@@ -1,13 +1,58 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
  
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [users, setUsers] = useState([]);
   const navigation = useNavigation()
- 
+
+  // const data = require('./users.json');
+
+  let data;
+    
+  useEffect(() => {
+    async function tempFunction() {
+      await getItemList();
+    }
+    tempFunction();
+    return () => {};
+  });
+
+  const getItemList = async () => {
+    try {
+      data = await AsyncStorage.getItem('usersList');
+      data = JSON.parse(data);
+      setUsers(data);
+
+      console.log(data);
+      
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onSubmit = () => {
+
+    let userAuth = false;
+
+    users.forEach((user) => {
+      if(user.email == email && user.password == password) { 
+        userAuth=true;
+        navigation.navigate('Home');
+      }
+    })
+    console.log(users)
+    if(userAuth==false) {
+      alert("Failed to Authenticate");
+    }
+    
+  } 
   return (
     <View style={styles.container}>
       <View>
@@ -45,7 +90,7 @@ export default function Login() {
         <Text style={styles.forgot_password_button}>Forgot Password?</Text>
       </TouchableOpacity>
  
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Home')}>
+      <TouchableOpacity style={styles.loginButton} onPress={onSubmit}>
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
 
