@@ -14,9 +14,15 @@ export default function NotificationScreen(){
         </View>
 
         <View style={styles.notification}>
-            <Notification notificationHeaderText="Covid Report Is Here" notificationSubText="You have been tested -ve" />
-            <Notification notificationHeaderText="Quarantine Period" notificationSubText="Your Quarantine period will end on this saturday" />
-            <Notification notificationHeaderText="Your Test Request is Accepted" notificationSubText="Appollo has accepted your test request for Sunday" />
+            <TouchableOpacity>
+              <Notification notificationHeaderText="Covid Report Is Here" notificationSubText="You have been tested -ve" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Notification notificationHeaderText="Quarantine Period" notificationSubText="Your Quarantine period will end on this saturday" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Notification notificationHeaderText="Your Test Request is Accepted" notificationSubText="Appollo has accepted your test request for Sunday" />
+            </TouchableOpacity>
         </View>
        
 

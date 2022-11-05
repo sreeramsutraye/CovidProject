@@ -8,8 +8,11 @@ import DatePicker from 'react-native-date-picker';
 
 export default function AddNewTest() {
   const navigation = useNavigation()
+  const [fullName,setFullName] = useState(null);
+  const [phoneNumber,setPhoneNumber] = useState(null);
   hospitals=['Apollo', 'Vcare', 'Dr.Reddy']
   const [date, setDate] = useState(new Date())
+  const [time, setTime] = useState(null)
 
   return (
       <View style={styles.container}>
@@ -24,7 +27,7 @@ export default function AddNewTest() {
               style={styles.TextInput}
               placeholder="Enter Full Name"
               placeholderTextColor="#022B3A"
-              // onChangeText={(email) => setEmail(email)}
+              onChangeText={(fullName) => setFullName(fullName)}
             />
           </View>
  
@@ -34,7 +37,7 @@ export default function AddNewTest() {
               placeholder="Phone Number"
               placeholderTextColor="#022B3A"
               secureTextEntry={true}
-              // onChangeText={(password) => setPassword(password)}
+              onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
             />
           </View>
 
@@ -60,7 +63,7 @@ export default function AddNewTest() {
               style={styles.TextInput}
               placeholder="Enter Data in DD/MM/YYYY"
               placeholderTextColor="#022B3A"
-              // onChangeText={(email) => setEmail(email)}
+              onChangeText={(date) => setDate(date)}
             />
           </View>
 
@@ -69,7 +72,7 @@ export default function AddNewTest() {
               style={styles.TextInput}
               placeholder="Enter Time in Hours"
               placeholderTextColor="#022B3A"
-              // onChangeText={(email) => setEmail(email)}
+              onChangeText={(time) => setTime(time)}
             />
           </View>
 
