@@ -15,6 +15,8 @@ export default function AddNewTest() {
   hospitals=['Apollo', 'Vcare', 'Dr.Reddy']
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState(null)
+  const welocomeMessage = require('./users.json');
+  // const [hospital,setHospital] = useState(null)
 
   const [appointments, setAppointments] = useState([]);
   let data;
@@ -32,30 +34,24 @@ export default function AddNewTest() {
       data = await AsyncStorage.getItem('appointmentsList');
       data = JSON.parse(data);
       setAppointments(data);
-
+      if(data == null){
+        setAppointments(welocomeMessage)
+      }
       // console.log(data);
-      
     } catch (err) {
       console.log(err);
     }
   };
 
-  
-
   const onSubmit = async () => {
-
-
     let random = Math.floor(Math.random() * 100) + 1 ;
-
     const appointment = {
       "name": fullName,
       "email": phoneNumber,
       "date": date,
       "time": time,
       "report": random
-
     };
-
 
     appointments.push(appointment);      
     const appointments_data = JSON.stringify(appointments);
@@ -97,6 +93,7 @@ export default function AddNewTest() {
               style={{width:'100%'}}
               defaultButtonText="Select Hospital"
               onSelect={(selectedItem, index) => {
+                // setHospital(selectedItem)
                 console.log(selectedItem, index)
               }}
               buttonTextAfterSelection={(selectedItem, index) => {

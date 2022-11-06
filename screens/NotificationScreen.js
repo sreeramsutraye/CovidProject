@@ -9,8 +9,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function NotificationScreen(){
 
   const [appointments,setAppointments] = useState([]);
-
-
   const welocomeMessage = require('./users.json');
   let data;
 
@@ -28,13 +26,11 @@ export default function NotificationScreen(){
       data = JSON.parse(data);
       setAppointments(data);
 
-      
-
       if(data == null){
-        setUsers(welocomeMessage)
+        setAppointments(welocomeMessage)
       }
 
-      // console.log("APPOINTMENTS", appointments);
+      console.log("APPOINTMENTS", appointments);
       
     } catch (err) {
       console.log(err);
