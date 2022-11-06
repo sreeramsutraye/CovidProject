@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Image, TextInput, TouchableOpacity,Select,Option,Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import SelectDropdown from 'react-native-select-dropdown';
 import TitleHeader from '../components/titleHeader';
 import BottomNavigator from '../components/bottomNavigator';
 import DatePicker from 'react-native-date-picker';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function AddNewTest() {
   const navigation = useNavigation()
@@ -14,8 +16,52 @@ export default function AddNewTest() {
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState(null)
 
-  const onSubmit = () => {
-    
+  const [appointments, setAppointments] = useState([]);
+  let data;
+
+  useEffect(() => {
+    async function tempFunction() {
+      await getItemList();
+    }
+    tempFunction();
+    return () => {};
+  });
+
+  const getItemList = async () => {
+    try {
+      data = await AsyncStorage.getItem('appointmentsList');
+      data = JSON.parse(data);
+      setAppointments(data);
+
+      // console.log(data);
+      
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  
+
+  const onSubmit = async () => {
+
+
+    let random = Math.floor(Math.random() * 100) + 1 ;
+
+    const appointment = {
+      "name": fullName,
+      "email": phoneNumber,
+      "date": date,
+      "time": time,
+      "report": random
+
+    };
+
+
+    appointments.push(appointment);      
+    const appointments_data = JSON.stringify(appointments);
+    // console.log(users_data);
+    await AsyncStorage.setItem('appointmentsList',appointments_data);
+    // console.log("APPOINTMENT", appointments);
     navigation.navigate('Home');
   } 
   return (

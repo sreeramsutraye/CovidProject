@@ -30,7 +30,11 @@ export default function Login() {
       data = JSON.parse(data);
       setUsers(data);
 
-      console.log(data);
+      if(data == null){
+        setUsers(rootUser)
+      }
+      
+      // console.log(data);
       
     } catch (err) {
       console.log(err);

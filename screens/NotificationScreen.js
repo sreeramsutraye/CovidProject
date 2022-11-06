@@ -1,10 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import TitleHeader from '../components/titleHeader';
 import BottomNavigator from '../components/bottomNavigator';
 import Notification from '../components/Notification';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function NotificationScreen(){
+
+  const [appointments,setAppointments] = useState([]);
+
+
+  const welocomeMessage = require('./users.json');
+  let data;
+
+  useEffect(() => {
+    async function tempFunction() {
+      await getItemList();
+    }
+    tempFunction();
+    return () => {};
+  });
+
+  const getItemList = async () => {
+    try {
+      data = await AsyncStorage.getItem('appointmentsList');
+      data = JSON.parse(data);
+      setAppointments(data);
+
+      
+
+      if(data == null){
+        setUsers(welocomeMessage)
+      }
+
+      // console.log("APPOINTMENTS", appointments);
+      
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
       <View style={styles.container}>
