@@ -57,7 +57,7 @@ export default function Login() {
     <View style={styles.container}>
       <View>
         <Image 
-            source={require("../assets/images/illustrations/testing.png")}
+            source={require("../assets/images/illustrations/login.png")}
             style={styles.image}
             resizeMode='contain'/>
       </View>

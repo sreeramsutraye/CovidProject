@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image,TouchableOpacity  } from 'react-native';
 import TitleHeader from '../components/titleHeader';
 import BottomNavigator from '../components/bottomNavigator';
 
-export default function Result(navigation){
+export default function Result(props){
   return (
       <View style={styles.container}>
 

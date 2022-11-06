@@ -14,6 +14,10 @@ export default function AddNewTest() {
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState(null)
 
+  const onSubmit = () => {
+    
+    navigation.navigate('Home');
+  } 
   return (
       <View style={styles.container}>
 
@@ -76,7 +80,7 @@ export default function AddNewTest() {
             />
           </View>
 
-          <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Home')}>
+          <TouchableOpacity style={styles.loginButton} onPress={onSubmit}>
             <Text style={styles.loginText}>SUBMIT</Text>
           </TouchableOpacity>
         </View>

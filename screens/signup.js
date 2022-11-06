@@ -48,35 +48,23 @@ export default function Signup() {
       }
     };
 
-  
-    
-
     const onSubmit = async () => {
-
       if(password!=confirmpassword) {
         alert("Password Mismatch");
         return;
       }
 
- 
-
-
       // Check if user already exists
       let userExists = false;
       
-      users.forEach((user) => {
-      
-     
-  
+      users.forEach((user) => {  
         if(user.email == email) {
           alert("User already Exits!");
 
           userExists = true;
           navigation.navigate('Login');
-          
         }
       })
-
 
       if(userExists==false){
    
@@ -87,30 +75,19 @@ export default function Signup() {
           "confirmpassword" : confirmpassword
         }
 
-
-        users.push(user);
-      
+        users.push(user);      
         const users_data = JSON.stringify(users);
-
         // console.log(users_data);
-
         await AsyncStorage.setItem('usersList',users_data);
-
-
         console.log("SIGNUP", users);
-
         navigation.navigate('Home');
-        
-
       }
-      
     }
-
     return (
         <View style={styles.container}>
         <View>
             <Image 
-                source={require("../assets/images/illustrations/testing.png")}
+                source={require("../assets/images/illustrations/signup.png")}
                 style={styles.image}
                 resizeMode='contain'/>
         </View>
