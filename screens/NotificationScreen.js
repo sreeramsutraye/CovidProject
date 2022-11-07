@@ -37,6 +37,22 @@ export default function NotificationScreen(){
     }
   };
 
+  const Notifications = (appointments.map((appointment) => {
+    
+    const NotificationList = () => {
+      const name = appointment.name + 'Test Has Been Scheduled';
+      const date = 'Date : ' + appointment.date + ' Time : ' + appointment.time;
+      const resultHeader = 'Your Covid Test Results are out'
+      const resultSubText = 'The Result is +ve'
+      return(
+        <Notification 
+        notificationHeaderText={name}
+        notificationSubText={date}
+        />
+      )
+    }
+  }))
+
   return (
       <View style={styles.container}>
 

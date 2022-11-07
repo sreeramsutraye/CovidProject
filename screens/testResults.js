@@ -30,7 +30,7 @@ export default function Result(props){
       
 
       if(data == null){
-        setUsers(welocomeMessage)
+        setAppointments(welocomeMessage)
       }
 
       console.log("TEST RESULTS", appointments);
@@ -69,9 +69,9 @@ export default function Result(props){
           </View>
         </View>
 
-        <TouchableOpacity style={styles.loginButton}>
+        {/* <TouchableOpacity style={styles.loginButton}>
           <Text style={styles.loginText}>Download</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <View style={styles.bottomNavigator}>
           <BottomNavigator/>

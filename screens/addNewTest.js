@@ -15,7 +15,7 @@ export default function AddNewTest() {
   hospitals=['Apollo', 'Vcare', 'Dr.Reddy']
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState(null)
-  const welocomeMessage = require('./users.json');
+  const welocomeMessage = require('./notifications.json');
   // const [hospital,setHospital] = useState(null)
 
   const [appointments, setAppointments] = useState([]);
@@ -27,7 +27,7 @@ export default function AddNewTest() {
     }
     tempFunction();
     return () => {};
-  });
+  },[]);
 
   const getItemList = async () => {
     try {
@@ -82,7 +82,6 @@ export default function AddNewTest() {
               style={styles.TextInput}
               placeholder="Phone Number"
               placeholderTextColor="#022B3A"
-              secureTextEntry={true}
               onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
             />
           </View>
