@@ -14,27 +14,30 @@ export default function Result(props){
 
   useEffect(() => {
     async function tempFunction() {
+      // console.log("Test")
       await getItemList();
+
+      // console.log(appointments);
     }
     tempFunction();
     return () => {};
-  });
+  },[]);
 
   const getItemList = async () => {
     try {
-      data = await AsyncStorage.getItem('appointmentsList');
-      data = JSON.parse(data);
-      setAppointments(data);
+      console.log("Check")
+      await AsyncStorage.getItem('appointmentsList').then((res)=>setAppointments( res));
+      // data = JSON.parse(data);
+      // setAppointments(data);
 
-      activeUser = await AsyncStorage.getItem('activeUser');
+      await AsyncStorage.getItem('activeUser').then((res)=>setUser(res));
       // activeUser = JSON.parse(activeUser);
-      setUser(activeUser);
+      // setUser(activeUser);
 
       if(data == null){
         setAppointments(welocomeMessage)
       }
 
-      console.log("TEST RESULTS", appointments);
       
     } catch (err) {
       console.log(err);
@@ -65,6 +68,7 @@ export default function Result(props){
             <View style={styles.column}>
               <Text>12/05/2022</Text>
               <Text>Negative</Text>
+              {console.log(appointments)}
               <Text>Appollo Hospitals</Text>
             </View>
           </View>
