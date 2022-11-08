@@ -9,12 +9,7 @@ export default function TitleHeader(props){
     return(
         <View style={styles.appBar}>
             <View>
-                <TouchableOpacity>
-                    <Icon name="medkit" color="#fff" size={20}></Icon>
-                </TouchableOpacity>
-            </View>
-            <View>
-                <Text style={styles.titleHeaderText}>{props.HeaderTest}</Text>
+                <Text style={{fontSize: 20,fontWeight: "bold",color:'#fff'}}>{props.HeaderTest}</Text>
             </View>
             <View>
                 <TouchableOpacity  onPress={() => navigation.navigate('NotificationScreen')}>
@@ -27,16 +22,14 @@ export default function TitleHeader(props){
 
 const styles = StyleSheet.create({
     titleHeaderText:{
-        color:'#ffffff',
-        fontSize: 20,
-        fontWeight: "bold"
+        
     },
     appBar:{
         backgroundColor:'#C08552',
         flexDirection: 'row',
         width:'100%',
         padding: 16,
-        justifyContent:'space-around',
+        justifyContent:'flex-end',
         marginTop:25,
         alignItems:'baseline'
     }
