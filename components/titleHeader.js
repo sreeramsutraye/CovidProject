@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width:'100%',
         padding: 16,
-        justifyContent:'flex-end',
+        justifyContent:'space-around',
         marginTop:25,
         alignItems:'baseline'
     }

@@ -10,7 +10,7 @@ export default function AddNewTest() {
   const navigation = useNavigation()
   const [fullName,setFullName] = useState(null);
   const [phoneNumber,setPhoneNumber] = useState(null);
-  hospitals=['Apollo', 'Vcare', 'Dr.Reddy']
+  const hospitals=['Apollo', 'Vcare', 'Dr.Reddy']
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState(null)
   const welocomeMessage = require('./notifications.json');
@@ -42,13 +42,14 @@ export default function AddNewTest() {
   };
 
   const onSubmit = async () => {
-    let random = Math.floor(Math.random() * 100) + 1 ;
+    const result = ['Positive','Negative']
+    let random = Math.floor(Math.random() * result.length);
     const appointment = {
       "name": fullName,
       "email": phoneNumber,
       "date": date,
       "time": time,
-      "report": random
+      "report": result[random]
     };
 
     appointments.push(appointment);      

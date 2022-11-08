@@ -40,19 +40,14 @@ export default function Profile() {
       
       let activeUser =  await AsyncStorage.getItem('activeUser');
 
-      console.log(users);
-      console.log(activeUser);
-
       users.forEach((user) => {  
         if(user.email == activeUser) {
-          console.log(user);
+
           setEmail(user.email);
           setName(user.name);
         }
       })
-      
-      console.log(email, name);
-      
+
     } catch (err) {
       console.log(err);
     }

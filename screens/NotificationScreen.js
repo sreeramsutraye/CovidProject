@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import TitleHeader from '../components/titleHeader';
 import BottomNavigator from '../components/bottomNavigator';
 import Notification from '../components/Notification';
+import NotificationList from '../components/NotificationList';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -22,53 +23,47 @@ export default function NotificationScreen(){
       await getItemList();
     }
     tempFunction();
-    return () => {};
+    // return () => {};
   },[]);
   // let userAppointments = [];
 
   const getItemList = async () => {
     try {
-      data = await AsyncStorage.getItem('appointmentsList').then((res)=>setAppointments( res))
-      // data = JSON.parse(data);
-      // setAppointments(data);
-
-      if(data == null){
-        setAppointments(welocomeMessage)
-      }
-
+      data = await AsyncStorage.getItem('appointmentsList').then((res)=>setAppointments(JSON.parse(res)))
+      // if(data == null){
+      //   setAppointments(welocomeMessage)
+      // }
       activeUser = await AsyncStorage.getItem('activeUser').then((res)=>setUser(res));
       // activeUser = JSON.parse(activeUser);
       setUser(activeUser);
-      // console.log("APPOINTMENTS", appointments);
       
-      // data.forEach(appointment => {
-      //   if (appointment.email == activeUser){
-      //     userAppointments.push(appointment)
-      //   }
-      //   // console.log(userAppointments);
       // })    
     } catch (err) {
       console.log(err);
     }
   };
 
-  // const Notifications = (appointments.map((appointment) => {
-    
-  //   const NotificationList = () => {
-  //     const name = appointment.name + 'Test Has Been Scheduled';
-  //     const date = 'Date : ' + appointment.date + ' Time : ' + appointment.time;
-  //     const resultHeader = 'Your Covid Test Results are out'
-  //     const resultSubText = 'The Result is +ve'
-  //     return(
-  //       <Notification 
-  //       notificationHeaderText={name}
-  //       notificationSubText={date}
-  //       />
-  //     )
-  //   }
-  // }))
 
-  return (
+  if (appointments !== undefined){
+    const appointmentList = []
+    if (user !== undefined){
+      let mainUser = user
+      for(let i =0; i<appointments.length; i++){
+        if (appointments[i].email == mainUser){
+          appointmentList.push(appointments[i])
+        }
+      }
+    }
+      const Vara = appointmentList.map(x =>{
+        return(
+          <Notification notificationHeaderText= {x[date]} notificationSubText = {x[date]} />
+        )
+      })
+    const name =  'Test Has Been Scheduled';
+    const date = 'Date : ' + ' Time : ' 
+    const resultHeader = 'Your Covid Test Results are out'
+    const resultSubText = 'The Result is +ve'
+    return (
       <View style={styles.container}>
 
         <View style={styles.titleHeader}>
@@ -76,15 +71,15 @@ export default function NotificationScreen(){
         </View>
 
         <View style={styles.notification}>
-            <TouchableOpacity>
-              {console.log("app" + appointments)}
-            {/* {appointments.map((item, index) => (
-              <Notification 
-                notificationHeaderText={"lsidrfglfgbwjkfb"}
-                notificationSubText={"dhviwdvbiuwbvuwbuwbujbuj"}
-              />
-          ))} */}
-            </TouchableOpacity>
+            {/* <NotificationList notificationList = {appointmentList}/> */}
+            {console.log("httfdtudtud")}
+            <Notification notificationHeaderText= "Appointment Scheduled" notificationSubText = "Date: Time:" />
+            <Notification notificationHeaderText= "Test Results Are Out" notificationSubText = "You Are Negative" />
+
+            {appointmentList.map((item,index) => (
+              <Notification notificationHeaderText = {item.date} notificationSubText={item.date} />
+            ))}
+
         </View>
 
         <View style={styles.bottomNavigator}>
@@ -93,6 +88,12 @@ export default function NotificationScreen(){
 
       </View>
   )
+  }
+  else{
+    return(
+      <View><Text>Loading...</Text></View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
