@@ -81,12 +81,12 @@ export default function Profile() {
                 <View style={styles.column1}>
                     <Text style={styles.profileText}>Full Name</Text>
                     <Text style={styles.profileText}>Email ID</Text>
-                    <Text style={styles.profileText}>Contact</Text>
+                    {/* <Text style={styles.profileText}>Contact</Text> */}
                 </View>
                 <View style={styles.column1}>
-                    <Text style={styles.profileText}>Virat Kohli</Text>
-                    <Text style={styles.profileText}>viratkohli@gmail.com</Text>
-                    <Text style={styles.profileText}>+91 1122334455</Text>
+                    <Text style={styles.profileText}>{name}</Text>
+                    <Text style={styles.profileText}>{email}</Text>
+                    {/* <Text style={styles.profileText}>+91 1122334455</Text> */}
                 </View>
             </View>
             <Text style={styles.profileHeaders}>{<Icon name="gears" color="#013A63" size={20}></Icon>}  Settings</Text>

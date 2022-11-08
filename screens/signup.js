@@ -109,7 +109,7 @@ export default function Signup() {
         <View style={styles.inputView}>
             <TextInput
             style={styles.TextInput}
-            placeholder="Email or Phone Number"
+            placeholder="Email ID"
             placeholderTextColor="#022B3A"
             onChangeText={(email) => setEmail(email)}
             />

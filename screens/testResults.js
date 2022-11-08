@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image,TouchableOpacity  } from 'react-native';
 import TitleHeader from '../components/titleHeader';
 import BottomNavigator from '../components/bottomNavigator';
-
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Result(props){
 
   const [appointments,setAppointments] = useState([]);
-
+  const [user, setUser] = useState("");
   const welocomeMessage = require('./users.json');
-  let data;
+  let data, activeUser;
+
 
   useEffect(() => {
     async function tempFunction() {
@@ -27,7 +26,9 @@ export default function Result(props){
       data = JSON.parse(data);
       setAppointments(data);
 
-      
+      activeUser = await AsyncStorage.getItem('activeUser');
+      // activeUser = JSON.parse(activeUser);
+      setUser(activeUser);
 
       if(data == null){
         setAppointments(welocomeMessage)
