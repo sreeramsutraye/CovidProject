@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { StyleSheet, Text, View,TouchableOpacity  } from 'react-native';
 import TitleHeader from '../components/titleHeader';
 import BottomNavigator from '../components/bottomNavigator';
@@ -7,11 +7,67 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function Profile() {
+  const [name, setName] = useState("ADMIN");
+  const [email, setEmail] = useState("admin@gmail.com");
+  const [mobile, setMobile] = useState("+91 1234567890");
+
   const on = true;
   const off = false;
-  const navigation = useNavigation()
+  const navigation = useNavigation();
+
+  let users;
+    
+  useEffect(() => {
+    async function tempFunction() {
+      await getItemList();
+    }
+    tempFunction();
+    return () => {};
+  },[]);
+
+  const getItemList = async () => {
+    try {
+      users = await AsyncStorage.getItem('usersList');
+      users = JSON.parse(users);
+
+      if(users == null){
+        setUsers(rootUser)
+      }
+      
+      let activeUser =  await AsyncStorage.getItem('activeUser');
+
+      console.log(users);
+      console.log(activeUser);
+
+      users.forEach((user) => {  
+        if(user.email == activeUser) {
+          console.log(user);
+          setEmail(user.email);
+          setName(user.name);
+        }
+      })
+      
+      console.log(email, name);
+      
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const logOut = async () => {
+
+    console.log("LOGGED OUT ",await AsyncStorage.getItem('activeUser'));
+
+    await AsyncStorage.removeItem('activeUser');
+
+    navigation.navigate('Login');
+
+    
+  }
   return (
       <View style={styles.container}>
 
@@ -38,8 +94,8 @@ export default function Profile() {
                 <View style={styles.column1}>
                     <TouchableOpacity onPress={() => navigation.navigate('NotificationScreen')}><Text style={styles.profileText}>{<Ionicons name="notifications" color="#013A63" size={20}></Ionicons>} Notifications</Text></TouchableOpacity>
                     <TouchableOpacity><Text style={styles.profileText}>{<Ionicons name="md-help-circle" color="#013A63" size={20}></Ionicons>} Help</Text></TouchableOpacity>
-                    {/* <TouchableOpacity onPress={() => navigation.navigate('ConfirmEmailOrPhone')}><Text style={styles.profileText}>{<Ionicons name="location" color="#013A63" size={20}></Ionicons>} Change Password</Text></TouchableOpacity> */}
-                    <TouchableOpacity onPress={() => navigation.navigate('Login')}><Text style={styles.profileText}>{<MaterialCommunityIcons name="logout" color="#013A63" size={20}></MaterialCommunityIcons>} Log Out</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('ConfirmEmailOrPhone')}><Text style={styles.profileText}>{<Ionicons name="location" color="#013A63" size={20}></Ionicons>} Change Password</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={logOut}><Text style={styles.profileText}>{<MaterialCommunityIcons name="logout" color="#013A63" size={20}></MaterialCommunityIcons>} Log Out</Text></TouchableOpacity>
                 </View>
                 <View style={styles.column1}>
                     <TouchableOpacity><Text style={styles.profileText}></Text></TouchableOpacity>

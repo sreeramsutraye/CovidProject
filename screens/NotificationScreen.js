@@ -9,8 +9,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function NotificationScreen(){
 
   const [appointments,setAppointments] = useState([]);
+  const [user, setUser] = useState("");
+
   const welocomeMessage = require('./users.json');
-  let data;
+  let data, activeUser;
+
+  // const appList = await AsyncStorage.getItem('appointmentsList'); 
 
   useEffect(() => {
     async function tempFunction() {
@@ -18,7 +22,7 @@ export default function NotificationScreen(){
     }
     tempFunction();
     return () => {};
-  });
+  },[]);
 
   const getItemList = async () => {
     try {
@@ -30,7 +34,13 @@ export default function NotificationScreen(){
         setAppointments(welocomeMessage)
       }
 
+      activeUser = await AsyncStorage.getItem('activeUser');
+      // activeUser = JSON.parse(activeUser);
+      setUser(activeUser);
+
+
       console.log("APPOINTMENTS", appointments);
+      console.log(activeUser);
       
     } catch (err) {
       console.log(err);

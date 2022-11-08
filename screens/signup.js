@@ -80,7 +80,7 @@ export default function Signup() {
         // console.log(users_data);
         await AsyncStorage.setItem('usersList',users_data);
         console.log("SIGNUP", users);
-        navigation.navigate('Home');
+        navigation.navigate('Login');
       }
     }
     return (

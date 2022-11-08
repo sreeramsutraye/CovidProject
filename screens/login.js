@@ -10,9 +10,10 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
-  const navigation = useNavigation()
+  const [activeUser, setActiveUser] = useState("");
+  const navigation = useNavigation();
 
-  // const data = require('./users.json');
+  const rootUser = require('./users.json');
 
   let data;
     
@@ -22,7 +23,7 @@ export default function Login() {
     }
     tempFunction();
     return () => {};
-  });
+  },[]);
 
   const getItemList = async () => {
     try {
@@ -34,6 +35,8 @@ export default function Login() {
         setUsers(rootUser)
       }
       
+      let user =  await AsyncStorage.getItem('activeUser');
+      setActiveUser(user);
       // console.log(data);
       
     } catch (err) {
@@ -41,13 +44,41 @@ export default function Login() {
     }
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+
+    // console.log(activeUser.length, activeUser[0].email, email);
+    let lastActiveUser = await AsyncStorage.getItem('activeUser');
+    console.log("LAST ", lastActiveUser);
+
+    // Incase user goes to login page through Stack Navigation.
+    if(lastActiveUser == email) {
+      await AsyncStorage.removeItem('activeUser');
+      lastActiveUser = null;
+    }
+
+    
+
+    if(lastActiveUser != null) {
+      alert("Please log out from existing session!")
+      return;
+    }
+
+    
 
     let userAuth = false;
 
-    users.forEach((user) => {
+    users.forEach(async (user) => {
       if(user.email == email && user.password == password) { 
         userAuth=true;
+        
+        // activeUser.push(user);
+        // const saveUser = JSON.stringify(activeUser); 
+        await AsyncStorage.setItem('activeUser',email);
+        console.log(await AsyncStorage.getItem('activeUser'));
+
+
+        // console.log(activeUser);
+
         navigation.navigate('Home');
       }
     })
