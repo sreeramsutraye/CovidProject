@@ -36,18 +36,16 @@ export default function Profile() {
             <Text style={styles.profileHeaders}>{<Icon name="gears" color="#013A63" size={20}></Icon>}  Settings</Text>
             <View style={styles.personalDetailsContainer}>
                 <View style={styles.column1}>
-                    <TouchableOpacity><Text style={styles.profileText}>{<MaterialCommunityIcons name="account-details" color="#013A63" size={20}></MaterialCommunityIcons>} Profile Settings</Text></TouchableOpacity>
-                    <TouchableOpacity><Text style={styles.profileText}>{<Ionicons name="notifications" color="#013A63" size={20}></Ionicons>} Notifications</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('NotificationScreen')}><Text style={styles.profileText}>{<Ionicons name="notifications" color="#013A63" size={20}></Ionicons>} Notifications</Text></TouchableOpacity>
                     <TouchableOpacity><Text style={styles.profileText}>{<Ionicons name="md-help-circle" color="#013A63" size={20}></Ionicons>} Help</Text></TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('ConfirmEmailOrPhone')}><Text style={styles.profileText}>{<Ionicons name="location" color="#013A63" size={20}></Ionicons>} Change Password</Text></TouchableOpacity>
+                    {/* <TouchableOpacity onPress={() => navigation.navigate('ConfirmEmailOrPhone')}><Text style={styles.profileText}>{<Ionicons name="location" color="#013A63" size={20}></Ionicons>} Change Password</Text></TouchableOpacity> */}
                     <TouchableOpacity onPress={() => navigation.navigate('Login')}><Text style={styles.profileText}>{<MaterialCommunityIcons name="logout" color="#013A63" size={20}></MaterialCommunityIcons>} Log Out</Text></TouchableOpacity>
                 </View>
                 <View style={styles.column1}>
                     <TouchableOpacity><Text style={styles.profileText}></Text></TouchableOpacity>
                     <TouchableOpacity><Text style={styles.profileText}></Text></TouchableOpacity>
                     <TouchableOpacity><Text style={styles.profileText}></Text></TouchableOpacity>
-                    <TouchableOpacity><Text style={styles.profileText}></Text></TouchableOpacity>
-                    <TouchableOpacity><Text style={styles.profileText}></Text></TouchableOpacity>
+                    {/* <TouchableOpacity><Text style={styles.profileText}></Text></TouchableOpacity> */}
                 </View>
             </View>
         </View>

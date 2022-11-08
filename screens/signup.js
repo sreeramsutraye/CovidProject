@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   },
  
   image: {
-    marginBottom: 40,
+    margin: 30,
     height:250,
     width:250,
   },
@@ -167,7 +167,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: 40,
     marginBottom: 16,
-    alignItems: "center",
     width: "70%",
     borderColor:"#022B3A",
     borderWidth: 1,

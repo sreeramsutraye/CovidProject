@@ -10,7 +10,7 @@ export default function Home(navigation){
       <View style={styles.container}>
 
         <View style={styles.titleHeader}>
-          <TitleHeader HeaderTest="Home"/>
+          <TitleHeader HeaderTest="Home Page"/>
         </View>
         
         <View style={styles.loadingBanner}>

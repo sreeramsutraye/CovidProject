@@ -4,8 +4,6 @@ import { useNavigation } from "@react-navigation/native";
 import SelectDropdown from 'react-native-select-dropdown';
 import TitleHeader from '../components/titleHeader';
 import BottomNavigator from '../components/bottomNavigator';
-import DatePicker from 'react-native-date-picker';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function AddNewTest() {
@@ -64,7 +62,7 @@ export default function AddNewTest() {
       <View style={styles.container}>
 
         <View style={styles.titleHeader}>
-          <TitleHeader HeaderTest="Schedule a Covid Test"/>
+          <TitleHeader HeaderTest="Schedule Test"/>
         </View>
         
         <View style={{width:'100%',alignItems:'center'}}>
@@ -123,7 +121,7 @@ export default function AddNewTest() {
           </View>
 
           <TouchableOpacity style={styles.loginButton} onPress={onSubmit}>
-            <Text style={styles.loginText}>SUBMIT</Text>
+            <Text style={{color:'#fff',fontSize:16}}>SUBMIT</Text>
           </TouchableOpacity>
         </View>
         
@@ -156,7 +154,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: 45,
     marginVertical: 15,
-    alignItems: "center",
     width: "70%",
     borderColor:"#022B3A",
     borderWidth: 1,

@@ -74,7 +74,7 @@ export default function Login() {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Email or Phone Number"
+          placeholder="Phone Number"
           placeholderTextColor="#022B3A"
           onChangeText={(email) => setEmail(email)}
         />
@@ -123,7 +123,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: 45,
     marginBottom: 20,
-    alignItems: "center",
     width: "70%",
     borderColor:"#022B3A",
     borderWidth: 1,
