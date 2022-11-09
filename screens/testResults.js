@@ -1,88 +1,84 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image,TouchableOpacity  } from 'react-native';
+import { StyleSheet, Text, View, Image,TouchableOpacity,ScrollView  } from 'react-native';
 import TitleHeader from '../components/titleHeader';
 import BottomNavigator from '../components/bottomNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import TestResultCard from '../components/TestResultCard';
 
 export default function Result(props){
 
   const [appointments,setAppointments] = useState([]);
   const [user, setUser] = useState("");
+
   const welocomeMessage = require('./users.json');
   let data, activeUser;
 
+  // const appList = await AsyncStorage.getItem('appointmentsList'); 
 
   useEffect(() => {
     async function tempFunction() {
-      // console.log("Test")
       await getItemList();
-
-      // console.log(appointments);
     }
     tempFunction();
-    return () => {};
+    // return () => {};
   },[]);
-
   const getItemList = async () => {
     try {
-      console.log("Check")
-      await AsyncStorage.getItem('appointmentsList').then((res)=>setAppointments( res));
-      // data = JSON.parse(data);
-      // setAppointments(data);
-
-      await AsyncStorage.getItem('activeUser').then((res)=>setUser(res));
-      // activeUser = JSON.parse(activeUser);
-      // setUser(activeUser);
-
-      if(data == null){
-        setAppointments(welocomeMessage)
-      }
-
-      
+      data = await AsyncStorage.getItem('appointmentsList').then((res)=>setAppointments(JSON.parse(res)))
+      activeUser = await AsyncStorage.getItem('activeUser').then((res)=>setUser(res));    
     } catch (err) {
       console.log(err);
     }
   };
-  return (
-      <View style={styles.container}>
 
-        <View style={styles.titleHeader}>
-          <TitleHeader HeaderTest="Test Results"/>
-        </View>
 
-        <View style={styles.loadingBanner}>
-          <Image 
-            source = {require('../assets/images/illustrations/test_result.png')}
-            style={styles.banner}
-            resizeMode='contain'/>
-        </View>
+  if (appointments !== undefined){
+    const appointmentList = []
+    if (user !== undefined){
+      let mainUser = user
+      for(let i =0; i<appointments.length; i++){
+        if (appointments[i].email == mainUser){
+          appointmentList.push(appointments[i])
+        }
+      }
+    }
 
-        <View>
-          <Text style={styles.loadingText}>Test Result</Text>
-          <View style={styles.ResultData}>
-            <View style={styles.column}>
-              <Text>Date:</Text>
-              <Text>Result:</Text>
-              <Text>Hospital Name:</Text>
-            </View>
-            <View style={styles.column}>
-              <Text>12/05/2022</Text>
-              <Text>Negative</Text>
-              {console.log(appointments)}
-              <Text>Appollo Hospitals</Text>
-            </View>
+    return (
+        <View style={styles.container}>
+
+          <View style={styles.titleHeader}>
+            <TitleHeader HeaderTest="Test Results"/>
+          </View>
+
+          <View style={styles.loadingBanner}>
+            <Image 
+              source = {require('../assets/images/illustrations/test_result.png')}
+              style={styles.banner}
+              resizeMode='contain'/>
+          </View>
+
+          <ScrollView>
+            <Text style={styles.loadingText}>Test Result</Text>
+            {console.log(appointmentList)}
+            {appointmentList.map((item,index) => (
+              <TestResultCard appointment={appointmentList[index]}/>
+            ))}
+          </ScrollView>
+
+          {/* <TouchableOpacity style={styles.loginButton}>
+            <Text style={styles.loginText}>Download</Text>
+          </TouchableOpacity> */}
+
+          <View style={styles.bottomNavigator}>
+            <BottomNavigator/>
           </View>
         </View>
-
-        {/* <TouchableOpacity style={styles.loginButton}>
-          <Text style={styles.loginText}>Download</Text>
-        </TouchableOpacity> */}
-
-        <View style={styles.bottomNavigator}>
-          <BottomNavigator/>
-        </View>
-      </View>
-  );
+    )}
+    else{
+      return(
+        <View><Text>Loading</Text></View>
+      )
+    }
 }
 
 const styles = StyleSheet.create({
@@ -116,16 +112,6 @@ const styles = StyleSheet.create({
   },
   navigationText:{
     color:"white"
-  },
-  column:{
-    flexDirection:'column',
-  },
-  ResultData:{
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center',
-    width:300,
-    paddingTop:20,
   },
   loginButton: {
     width: "80%",

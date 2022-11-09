@@ -8,10 +8,10 @@ export default function TitleHeader(props){
 
     return(
         <View style={styles.appBar}>
-            <View>
+            <View style={{flex:9}}>
                 <Text style={{fontSize: 20,fontWeight: "bold",color:'#fff'}}>{props.HeaderTest}</Text>
             </View>
-            <View>
+            <View style={{flex:1}}>
                 <TouchableOpacity  onPress={() => navigation.navigate('NotificationScreen')}>
                     <Icon name="bell" color="#fff" size={20}></Icon>
                 </TouchableOpacity>

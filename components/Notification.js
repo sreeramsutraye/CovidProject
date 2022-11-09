@@ -5,8 +5,6 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function Notification(props){
     const navigation = useNavigation()
-    // console.log(props.appointmentList);
-    // if (props.appointmentList.length > 0){
         return(
             <View style={styles.container}>
                 <View style={styles.notificationIcon}>

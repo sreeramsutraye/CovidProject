@@ -14,7 +14,7 @@ export default function AddNewTest() {
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState(null)
   const welocomeMessage = require('./notifications.json');
-  // const [hospital,setHospital] = useState(null)
+  const [hospital,setHospital] = useState(null)
 
   const [appointments, setAppointments] = useState([]);
   let data;
@@ -49,7 +49,8 @@ export default function AddNewTest() {
       "email": phoneNumber,
       "date": date,
       "time": time,
-      "report": result[random]
+      "report": result[random],
+      "hospital":hospital
     };
 
     appointments.push(appointment);      
@@ -91,7 +92,7 @@ export default function AddNewTest() {
               style={{width:'100%'}}
               defaultButtonText="Select Hospital"
               onSelect={(selectedItem, index) => {
-                // setHospital(selectedItem)
+                setHospital(selectedItem)
                 console.log(selectedItem, index)
               }}
               buttonTextAfterSelection={(selectedItem, index) => {

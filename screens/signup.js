@@ -49,6 +49,8 @@ export default function Signup() {
     };
 
     const onSubmit = async () => {
+      console.log(email);
+
       if(password!=confirmpassword) {
         alert("Password Mismatch");
         return;

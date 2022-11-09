@@ -89,7 +89,7 @@ export default function Profile() {
                 <View style={styles.column1}>
                     <TouchableOpacity onPress={() => navigation.navigate('NotificationScreen')}><Text style={styles.profileText}>{<Ionicons name="notifications" color="#013A63" size={20}></Ionicons>} Notifications</Text></TouchableOpacity>
                     <TouchableOpacity><Text style={styles.profileText}>{<Ionicons name="md-help-circle" color="#013A63" size={20}></Ionicons>} Help</Text></TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('ConfirmEmailOrPhone')}><Text style={styles.profileText}>{<Ionicons name="location" color="#013A63" size={20}></Ionicons>} Change Password</Text></TouchableOpacity>
+                    {/* <TouchableOpacity onPress={() => navigation.navigate('ConfirmEmailOrPhone')}><Text style={styles.profileText}>{<Ionicons name="location" color="#013A63" size={20}></Ionicons>} Change Password</Text></TouchableOpacity> */}
                     <TouchableOpacity onPress={logOut}><Text style={styles.profileText}>{<MaterialCommunityIcons name="logout" color="#013A63" size={20}></MaterialCommunityIcons>} Log Out</Text></TouchableOpacity>
                 </View>
                 <View style={styles.column1}>
