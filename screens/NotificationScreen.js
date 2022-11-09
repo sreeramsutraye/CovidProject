@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import TitleHeader from '../components/titleHeader';
 import BottomNavigator from '../components/bottomNavigator';
 import Notification from '../components/Notification';
-import NotificationList from '../components/NotificationList';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -11,7 +10,6 @@ export default function NotificationScreen(){
 
   const [appointments,setAppointments] = useState([]);
   const [user, setUser] = useState("");
-  const [userAppointments, setUserAppointments] = useState([])
 
   const welocomeMessage = require('./users.json');
   let data, activeUser;
@@ -19,6 +17,7 @@ export default function NotificationScreen(){
   // const appList = await AsyncStorage.getItem('appointmentsList'); 
 
   useEffect(() => {
+    console.log('useeffect');
     async function tempFunction() {
       await getItemList();
     }
@@ -35,7 +34,7 @@ export default function NotificationScreen(){
       // }
       activeUser = await AsyncStorage.getItem('activeUser').then((res)=>setUser(res));
       // activeUser = JSON.parse(activeUser);
-      setUser(activeUser);
+      // setUser(activeUser);
       
       // })    
     } catch (err) {
@@ -54,15 +53,13 @@ export default function NotificationScreen(){
         }
       }
     }
-      const Vara = appointmentList.map(x =>{
-        return(
-          <Notification notificationHeaderText= {x[date]} notificationSubText = {x[date]} />
-        )
-      })
+
     const name =  'Test Has Been Scheduled';
     const date = 'Date : ' + ' Time : ' 
     const resultHeader = 'Your Covid Test Results are out'
     const resultSubText = 'The Result is +ve'
+
+    console.log(appointmentList);
     return (
       <View style={styles.container}>
 
@@ -71,14 +68,18 @@ export default function NotificationScreen(){
         </View>
 
         <View style={styles.notification}>
-            {/* <NotificationList notificationList = {appointmentList}/> */}
-            {console.log("httfdtudtud")}
-            <Notification notificationHeaderText= "Appointment Scheduled" notificationSubText = "Date: Time:" />
-            <Notification notificationHeaderText= "Test Results Are Out" notificationSubText = "You Are Negative" />
 
+            
             {appointmentList.map((item,index) => (
-              <Notification notificationHeaderText = {item.date} notificationSubText={item.date} />
+              <View>
+                <Notification notificationHeaderText = "Test Scheduled" notificationSubText= {`Date: ${item.date} Time : ${item.time}`}/>
+                <Notification notificationHeaderText = {`${item.name}'s Test Results are here`} notificationSubText={`Result: ${item.report}`} />
+              </View>
+              
             ))}
+          
+
+            {/* <Notification appointmentList = {appointmentList} /> */}
 
         </View>
 
