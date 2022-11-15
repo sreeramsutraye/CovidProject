@@ -74,6 +74,7 @@ export default function AddNewTest() {
     // console.log(users_data);
     await AsyncStorage.setItem('appointmentsList',appointments_data);
     // console.log("APPOINTMENT", appointments);
+    alert("Successfully Submitted Test Appointment!")
     navigation.navigate('Home');
   } 
   return (

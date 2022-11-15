@@ -56,29 +56,20 @@ export default function Login() {
       lastActiveUser = null;
     }
 
-    
-
     if(lastActiveUser != null) {
       alert("Please log out from existing session!")
       return;
     }
 
-    
-
     let userAuth = false;
-
     users.forEach(async (user) => {
       if(user.email == email && user.password == password) { 
         userAuth=true;
-        
         // activeUser.push(user);
         // const saveUser = JSON.stringify(activeUser); 
         await AsyncStorage.setItem('activeUser',email);
         console.log(await AsyncStorage.getItem('activeUser'));
-
-
         // console.log(activeUser);
-
         navigation.navigate('Home');
       }
     })
@@ -86,7 +77,6 @@ export default function Login() {
     if(userAuth==false) {
       alert("Failed to Authenticate");
     }
-    
   } 
   return (
     <View style={styles.container}>

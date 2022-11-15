@@ -84,6 +84,9 @@ export default function Signup() {
         navigation.navigate('Login');
       }
     }
+    const TandCClicked = () => {
+      alert("Terms And Conditions")
+    }
     return (
         <View style={styles.container}>
         <View>
@@ -136,7 +139,7 @@ export default function Signup() {
             />
         </View>
     
-        <TouchableOpacity>
+        <TouchableOpacity onPress={TandCClicked}>
             <View style={styles.terms_and_conditions}>
                 <Text>Terms & Conditions</Text>
             </View>
