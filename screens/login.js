@@ -23,7 +23,7 @@ export default function Login() {
     }
     tempFunction();
     return () => {};
-  },[]);
+  });
 
   const getItemList = async () => {
     try {

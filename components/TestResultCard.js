@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, Image,TouchableOpacity,ScrollView  } from 'reac
 
 export default function TestResultCard(props){
     const appointment = props.appointment
-    console.log(appointment);
     return(
         <View style={styles.ResultData}>
             <View style={styles.column}>
@@ -15,7 +14,7 @@ export default function TestResultCard(props){
             <View style={styles.column}>
               <Text>{appointment.date}</Text>
               <Text>{appointment.report}</Text>
-              <Text>Appollo Hospitals</Text>
+              <Text>{appointment.hospital !== undefined ? appointment.hospital : ' '}</Text>
             </View>
         </View>
     )

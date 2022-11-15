@@ -49,7 +49,6 @@ export default function Signup() {
     };
 
     const onSubmit = async () => {
-      console.log(email);
 
       if(password!=confirmpassword) {
         alert("Password Mismatch");
@@ -81,7 +80,7 @@ export default function Signup() {
         const users_data = JSON.stringify(users);
         // console.log(users_data);
         await AsyncStorage.setItem('usersList',users_data);
-        console.log("SIGNUP", users);
+        // console.log("SIGNUP", users);
         navigation.navigate('Login');
       }
     }

@@ -58,10 +58,9 @@ export default function Result(props){
           </View>
 
           <ScrollView>
-            <Text style={styles.loadingText}>Test Result</Text>
-            {console.log(appointmentList)}
+            <Text style={styles.loadingText}>{appointmentList.length !== 0 ? "Your Test Results" : "No Tests are Present"}</Text>
             {appointmentList.map((item,index) => (
-              <TestResultCard appointment={appointmentList[index]}/>
+              <TestResultCard appointment={appointmentList[index]} item={item}/>
             ))}
           </ScrollView>
 

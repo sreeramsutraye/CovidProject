@@ -54,14 +54,14 @@ export default function NotificationScreen(){
           <TitleHeader HeaderTest="Notifications"/>
         </View>
 
-        <View style={styles.notification}>         
+        <ScrollView style={styles.notification}>         
             {appointmentList.map((item,index) => (
               <ScrollView>
-                <Notification notificationHeaderText = "Test Scheduled" notificationSubText= {`Date: ${item.date} Time : ${item.time}`}/>
-                <Notification notificationHeaderText = {`${item.name}'s Test Results are here`} notificationSubText={`Result: ${item.report}`} />
+                <Notification index={index} notificationHeaderText = {`Test Scheduled at ${item.hospital !== undefined ? item.hospital : ''}`} notificationSubText= {`Date: ${item.date} Time : ${item.time}`}/>
+                <Notification index={index} notificationHeaderText = {`${item.name}'s Test Results are here`} notificationSubText={`Result: ${item.report}`} />
               </ScrollView>
             ))}
-        </View>
+        </ScrollView>
 
         <View style={styles.bottomNavigator}>
           <BottomNavigator/>
