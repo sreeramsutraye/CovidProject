@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import {StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+import { useIsFocused } from "@react-navigation/native";
+
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
  
@@ -12,18 +14,23 @@ export default function Login() {
   const [users, setUsers] = useState([]);
   const [activeUser, setActiveUser] = useState("");
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
   const rootUser = require('./users.json');
 
   let data;
     
   useEffect(() => {
+    console.log("LOGIN");
     async function tempFunction() {
       await getItemList();
     }
-    tempFunction();
+    if(isFocused){ 
+      tempFunction();;
+     }
+    // tempFunction();
     return () => {};
-  });
+  },[isFocused]);
 
   const getItemList = async () => {
     try {
@@ -107,7 +114,7 @@ export default function Login() {
           placeholder="Password."
           placeholderTextColor="#022B3A"
           secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
+          onChangeText={(password) => {setPassword(password)}}
         />
       </View>
  

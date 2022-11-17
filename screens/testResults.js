@@ -10,7 +10,9 @@ export default function Result(props){
   const [appointments,setAppointments] = useState([]);
   const [user, setUser] = useState("");
 
-  const welocomeMessage = require('./users.json');
+  const welcomeMessage = require('./users.json');
+
+  const notification_example = require('./notifications.json');
   let data, activeUser;
 
   // const appList = await AsyncStorage.getItem('appointmentsList'); 
@@ -24,7 +26,14 @@ export default function Result(props){
   },[]);
   const getItemList = async () => {
     try {
-      data = await AsyncStorage.getItem('appointmentsList').then((res)=>setAppointments(JSON.parse(res)))
+      // data = await AsyncStorage.getItem('appointmentsList').then((res)=>setAppointments(JSON.parse(res)))
+      data = await AsyncStorage.getItem('appointmentsList').then((res)=>{
+        if(res == null){
+          setAppointments(notification_example);
+        }
+        else
+        setAppointments(JSON.parse(res));
+      })
       activeUser = await AsyncStorage.getItem('activeUser').then((res)=>setUser(res));    
     } catch (err) {
       console.log(err);
@@ -60,7 +69,7 @@ export default function Result(props){
           <ScrollView>
             <Text style={styles.loadingText}>{appointmentList.length !== 0 ? "Your Test Results" : "No Tests are Present"}</Text>
             {appointmentList.map((item,index) => (
-              <TestResultCard appointment={appointmentList[index]} item={item}/>
+              <TestResultCard appointment={appointmentList[index]} index={index} item={item}/>
             ))}
           </ScrollView>
 

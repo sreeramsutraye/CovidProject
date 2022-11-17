@@ -11,7 +11,8 @@ export default function NotificationScreen(){
   const [appointments,setAppointments] = useState([]);
   const [user, setUser] = useState("");
 
-  const welocomeMessage = require('./users.json');
+  const welcomeMessage = require('./users.json');
+  const notification_example = require('./notifications.json');
   let data, activeUser;
 
   // const appList = await AsyncStorage.getItem('appointmentsList'); 
@@ -25,7 +26,13 @@ export default function NotificationScreen(){
   },[]);
   const getItemList = async () => {
     try {
-      data = await AsyncStorage.getItem('appointmentsList').then((res)=>setAppointments(JSON.parse(res)))
+      data = await AsyncStorage.getItem('appointmentsList').then((res)=>{
+        if(res == null){
+          setAppointments(notification_example);
+        }
+        else
+        setAppointments(JSON.parse(res));
+      })
       // if(data == null){
       //   setAppointments(welocomeMessage)
       // }
@@ -34,9 +41,9 @@ export default function NotificationScreen(){
       console.log(err);
     }
   };
-
-
-  if (appointments !== undefined){
+  console.log(appointments)
+  
+  if (appointments !== null){
     const appointmentList = []
     if (user !== undefined){
       let mainUser = user
